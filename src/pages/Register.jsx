@@ -2,12 +2,15 @@ import React from 'react'
 import Add from "../img/gallery.png"
 
 const Register = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
+  }
   return (
     <div className='formContainer'>
     <div className='formWrapper'> 
     <span className="logo">Quip Quirk</span>
     <span className="logo">Register</span>
-    <form>
+    <form onSubmit={handleSubmit}>
         <input type ="text" placeholder="display name"/>
         <input type ="email" placeholder="email"/>
         <input type ="password" placeholder="password"/>

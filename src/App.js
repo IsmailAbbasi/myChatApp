@@ -4,7 +4,7 @@ import Login from "./pages/Login"
 import "./style.scss"
 function App() {
   return (
-    <Home/>
+    <Register/>
   );
 }
 
