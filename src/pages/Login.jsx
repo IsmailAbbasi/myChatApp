@@ -5,7 +5,7 @@ const Login = () => {
     <div className='formContainer'>
     <div className='formWrapper'> 
     <span className="logo">Quip Quirk</span>
-    <span className="logo">Login</span>
+    <span className="logo1">Login</span>
     <form>
         <input type ="email" placeholder="email"/>
         <input type ="password" placeholder="password"/>
