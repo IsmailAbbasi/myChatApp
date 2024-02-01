@@ -5,7 +5,7 @@ import { createUserWithEmailAndPassword ,updateProfile } from "firebase/auth";
 import { auth ,storage, db } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore"; 
-import {useNavigate} from "react-router-dom"
+import {useNavigate,Link} from "react-router-dom"
 
 
 
@@ -74,7 +74,7 @@ setErr(true)
         <button>Sign Up</button>
      {err && <span>Something went Wrong</span>}   
     </form>
-    <p>You do have an account? Login</p>
+    <p>You do have an account? <Link to="/register">Login</Link></p>
     </div>
     </div>
   )
