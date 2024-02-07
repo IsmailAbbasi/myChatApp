@@ -92,6 +92,11 @@ import { useNavigate, Link } from "react-router-dom";
 
 const Register = () => {
   const [err, setErr] = useState(false);
+  const [message, setMessage] = useState("")
+  const [form, setForm] = useState({
+    email: "",
+    password: ""
+  })
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -99,7 +104,7 @@ const Register = () => {
     setLoading(true);
     e.preventDefault();
     const displayName = e.target[0].value;
-    const email = e.target[1].value;
+    const email = form.email;
     const password = e.target[2].value;
     const file = e.target[3].files[0];
 
@@ -114,7 +119,7 @@ const Register = () => {
       await uploadBytesResumable(storageRef, file).then(() => {
         getDownloadURL(storageRef).then(async (downloadURL) => {
           try {
-            //Update profile
+
             await updateProfile(res.user, {
               displayName,
               photoURL: downloadURL,
@@ -127,7 +132,6 @@ const Register = () => {
               photoURL: downloadURL,
             });
 
-            //create empty user chats on firestore
             await setDoc(doc(db, "userChats", res.user.uid), {});
             navigate("/");
           } catch (err) {
@@ -143,15 +147,31 @@ const Register = () => {
     }
   };
 
+
+  const handleChange = (e) => {
+    if(e.target.name === "password") {
+      if(e.target.value.length < 8) {
+        setMessage("Password is too short")
+      }
+    }
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    })
+  }
+
+
   return (
     <div className="formContainer">
+      {JSON.stringify(form)}
       <div className="formWrapper">
+        <div>{message}</div>
         <span className="logo">Quick Quirk</span>
         <span className="title">Register</span>
         <form onSubmit={handleSubmit}>
-          <input required type="text" placeholder="display name" />
-          <input required type="email" placeholder="email" />
-          <input required type="password" placeholder="password" />
+          <input required type="text" placeholder="display name"    />
+          <input required name="email" type="email" placeholder="email" value={form.email} onChange={(e) => handleChange(e)} />
+          <input required name="password" type="password" placeholder="password" value={form.password} onChange={(e) => handleChange(e)} />
           <input required style={{ display: "none" }} type="file" id="file" />
           <label htmlFor="file">
             <img src={Add} alt="" />
