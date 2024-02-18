@@ -198,10 +198,6 @@
 // export default Search;
 
 
-
-
-
-
 import React, { useContext, useState } from "react";
 import {
   collection,
@@ -247,6 +243,12 @@ const Search = () => {
     typingTimeout = setTimeout(handleSearch, 500);
   };
 
+  const handleKeyUp = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   const handleSelect = async () => {
     const combinedId =
       currentUser.uid > user.uid
@@ -289,6 +291,7 @@ const Search = () => {
           type="text"
           placeholder="Find a user"
           onChange={handleChange}
+          onKeyUp={handleKeyUp} // Add onKeyUp event handler
           value={username}
         />
       </div>
