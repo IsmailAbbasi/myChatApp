@@ -199,6 +199,9 @@
 
 
 
+
+
+
 import React, { useContext, useState } from "react";
 import {
   collection,
@@ -218,6 +221,7 @@ const Search = () => {
   const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
   const [err, setErr] = useState(false);
+  let typingTimeout = null; // Debounce timeout variable
 
   const { currentUser } = useContext(AuthContext);
 
@@ -237,10 +241,10 @@ const Search = () => {
     }
   };
 
-  const handleKeyUp = (e) => {
-    if (e.key === "Enter") {
-      handleSearch();
-    }
+  const handleChange = (e) => {
+    setUsername(e.target.value);
+    clearTimeout(typingTimeout);
+    typingTimeout = setTimeout(handleSearch, 500);
   };
 
   const handleSelect = async () => {
@@ -284,8 +288,7 @@ const Search = () => {
         <input
           type="text"
           placeholder="Find a user"
-          onKeyUp={handleKeyUp}
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={handleChange}
           value={username}
         />
       </div>
