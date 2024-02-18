@@ -199,7 +199,6 @@
 
 
 
-
 import React, { useContext, useState } from "react";
 import {
   collection,
@@ -235,12 +234,6 @@ const Search = () => {
       });
     } catch (err) {
       setErr(true);
-    }
-  };
-
-  const handleKey = (e) => {
-    if (e.key === "Enter" || e.keyCode === 13) {
-      handleSearch();
     }
   };
 
@@ -285,9 +278,13 @@ const Search = () => {
         <input
           type="text"
           placeholder="Find a user"
-          onKeyDown={handleKey}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleSearch();
+            }
+          }}
           onChange={(e) => setUsername(e.target.value)}
-          value={username}                              
+          value={username}
         />
       </div>
       {err && <span>User not found!</span>}
