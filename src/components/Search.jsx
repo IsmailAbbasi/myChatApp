@@ -237,6 +237,12 @@ const Search = () => {
     }
   };
 
+  const handleKeyUp = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   const handleSelect = async () => {
     const combinedId =
       currentUser.uid > user.uid
@@ -278,11 +284,7 @@ const Search = () => {
         <input
           type="text"
           placeholder="Find a user"
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              handleSearch();
-            }
-          }}
+          onKeyUp={handleKeyUp}
           onChange={(e) => setUsername(e.target.value)}
           value={username}
         />
