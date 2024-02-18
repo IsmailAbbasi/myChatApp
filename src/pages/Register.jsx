@@ -163,7 +163,7 @@ const Register = () => {
 
   return (
     <div className="formContainer">
-      {JSON.stringify(form)}
+      {/* {JSON.stringify(form)} */}
       <div className="formWrapper">
         <div>{message}</div>
         <span className="logo">Quick Quirk</span>
